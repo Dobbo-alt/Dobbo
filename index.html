@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Whose Round? Night Out Budget, Bill Splitter &amp; Kitty Calculator</title>
+<title>Whose Round? Night Out Budget, Bill Splitter &amp; Shout Calculator (AUD)</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Free night-out calculators: budget a night out, split the bill with tip, and work out a fair kitty or rounds for your group.">
+<meta name="description" content="Free night-out calculators: budget a night out, split the bill with tip, and work out whose shout it is or a fair kitty for your group.">
   <meta name="google-site-verification" content="gcIMuULFYk5Xh-CD_VNBS2WDOW0npD5MUeEzFvdfXQI" />
 <link rel="canonical" href="https://dobbo-alt.github.io/Dobbo/">
 <meta property="og:title" content="Whose Round? Free night-out calculators">
-<meta property="og:description" content="Budget a night out, split the bill with tip, and work out a fair kitty or rounds for your group.">
+<meta property="og:description" content="Budget a night out, split the bill with tip, and work out whose shout it is or a fair kitty for your group.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dobbo-alt.github.io/Dobbo/">
 <meta name="theme-color" content="#1B1E3A">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Whose Round?","url":"https://dobbo-alt.github.io/Dobbo/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"description":"Free night-out calculators: budget a night out, split the bill with tip, and work out a fair kitty or rounds for your group."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Whose Round?","url":"https://dobbo-alt.github.io/Dobbo/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"description":"Free night-out calculators for Australia: budget a night out, split the bill, and work out whose shout it is or a fair kitty."}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
@@ -64,11 +64,11 @@ footer p{margin:0;max-width:65ch}
 <header>
   <div>
     <h1>Whose <span>Round</span>?</h1>
-    <p class="tag">Free calculators for nights out. Work out what a night will cost, split the bill fairly, and settle the kitty before the first drink.</p>
+    <p class="tag">Free calculators for nights out. Work out what a night will cost, split the bill fairly, and settle the shout or the kitty before the first drink.</p>
   </div>
   <label class="cur" for="cur">Currency
     <select id="cur" style="width:auto">
-      <option value="£">£ GBP</option><option value="$">$ USD</option><option value="€">€ EUR</option><option value="A$">A$ AUD</option><option value="NZ$">NZ$ NZD</option><option value="C$">C$ CAD</option>
+      <option value="A$">A$ AUD</option><option value="£">£ GBP</option><option value="$">$ USD</option><option value="€">€ EUR</option><option value="NZ$">NZ$ NZD</option><option value="C$">C$ CAD</option>
     </select>
   </label>
 </header>
@@ -76,7 +76,7 @@ footer p{margin:0;max-width:65ch}
 <nav role="tablist" aria-label="Calculators">
   <button role="tab" id="t-budget" aria-selected="true" data-tab="budget">Night out budget</button>
   <button role="tab" id="t-split" aria-selected="false" data-tab="split">Bill splitter</button>
-  <button role="tab" id="t-kitty" aria-selected="false" data-tab="kitty">Rounds vs kitty</button>
+  <button role="tab" id="t-kitty" aria-selected="false" data-tab="kitty">Shouts vs kitty</button>
 </nav>
 
 <section class="tool" id="budget" role="tabpanel" aria-labelledby="t-budget">
@@ -85,10 +85,10 @@ footer p{margin:0;max-width:65ch}
     <p class="lede">Add up drinks, entry, food and the ride home, then see what that means across a month.</p>
     <div class="fields">
       <div class="field"><label for="b-drinks">Drinks</label><input id="b-drinks" type="number" min="0" value="5"></div>
-      <div class="field"><label for="b-price">Price per drink</label><input id="b-price" type="number" min="0" step="0.1" value="6.5"></div>
-      <div class="field"><label for="b-entry">Entry / cover</label><input id="b-entry" type="number" min="0" step="0.5" value="10"></div>
-      <div class="field"><label for="b-food">Food</label><input id="b-food" type="number" min="0" step="0.5" value="12"></div>
-      <div class="field"><label for="b-travel">Travel (both ways)</label><input id="b-travel" type="number" min="0" step="0.5" value="18"></div>
+      <div class="field"><label for="b-price">Price per drink</label><input id="b-price" type="number" min="0" step="0.5" value="12"></div>
+      <div class="field"><label for="b-entry">Entry / cover</label><input id="b-entry" type="number" min="0" step="0.5" value="15"></div>
+      <div class="field"><label for="b-food">Food</label><input id="b-food" type="number" min="0" step="0.5" value="25"></div>
+      <div class="field"><label for="b-travel">Travel (both ways)</label><input id="b-travel" type="number" min="0" step="0.5" value="35"></div>
       <div class="field"><label for="b-buffer">Buffer for surprises</label><select id="b-buffer"><option value="0">None</option><option value="0.1">10%</option><option value="0.2" selected>20%</option><option value="0.3">30%</option></select></div>
       <div class="field full"><label for="b-nights">Nights out per month</label><input id="b-nights" type="number" min="0" value="2"></div>
     </div>
@@ -109,13 +109,13 @@ footer p{margin:0;max-width:65ch}
 <section class="tool" id="split" role="tabpanel" aria-labelledby="t-split" hidden>
   <div>
     <h2>Split the bill</h2>
-    <p class="lede">Split evenly, with tip, and let the people who skipped drinks pay less.</p>
+    <p class="lede">Split evenly, add a tip if you want one (it's optional in Australia), and let the people who skipped drinks pay less.</p>
     <div class="fields">
-      <div class="field"><label for="s-bill">Bill total</label><input id="s-bill" type="number" min="0" step="0.5" value="186"></div>
-      <div class="field"><label for="s-tip">Tip</label><select id="s-tip"><option value="0">0%</option><option value="0.1">10%</option><option value="0.125" selected>12.5%</option><option value="0.15">15%</option><option value="0.18">18%</option><option value="0.2">20%</option></select></div>
+      <div class="field"><label for="s-bill">Bill total</label><input id="s-bill" type="number" min="0" step="0.5" value="320"></div>
+      <div class="field"><label for="s-tip">Tip</label><select id="s-tip"><option value="0" selected>0%</option><option value="0.1">10%</option><option value="0.125">12.5%</option><option value="0.15">15%</option><option value="0.18">18%</option><option value="0.2">20%</option></select></div>
       <div class="field"><label for="s-people">People</label><input id="s-people" type="number" min="1" value="6"></div>
       <div class="field"><label for="s-sober">Not drinking</label><input id="s-sober" type="number" min="0" value="1"></div>
-      <div class="field full"><label for="s-drinks">Of the bill, drinks were</label><input id="s-drinks" type="number" min="0" step="0.5" value="72"></div>
+      <div class="field full"><label for="s-drinks">Of the bill, drinks were</label><input id="s-drinks" type="number" min="0" step="0.5" value="130"></div>
     </div>
   </div>
   <div class="receipt" aria-live="polite">
@@ -130,19 +130,19 @@ footer p{margin:0;max-width:65ch}
 
 <section class="tool" id="kitty" role="tabpanel" aria-labelledby="t-kitty" hidden>
   <div>
-    <h2>Rounds or a kitty?</h2>
-    <p class="lede">Buying rounds only works out fair if everyone gets a turn. See who comes out ahead.</p>
+    <h2>Shouts or a kitty?</h2>
+    <p class="lede">Taking turns to shout only works out fair if everyone gets a turn. See who comes out ahead.</p>
     <div class="fields">
       <div class="field"><label for="k-group">People in the group</label><input id="k-group" type="number" min="1" value="5"></div>
-      <div class="field"><label for="k-price">Average drink price</label><input id="k-price" type="number" min="0" step="0.1" value="6.5"></div>
-      <div class="field full"><label for="k-rounds">Rounds you'll actually get through</label><input id="k-rounds" type="number" min="0" value="3"></div>
+      <div class="field"><label for="k-price">Average drink price</label><input id="k-price" type="number" min="0" step="0.5" value="12"></div>
+      <div class="field full"><label for="k-rounds">Shouts you'll actually get through</label><input id="k-rounds" type="number" min="0" value="3"></div>
     </div>
   </div>
   <div class="receipt" aria-live="polite">
     <div class="cap">Fair kitty, each</div>
     <div class="big" id="k-each">–</div>
-    <div class="row"><span>One round costs</span><span id="k-round"></span></div>
-    <div class="row"><span>Buyers of a round pay</span><span id="k-buyer"></span></div>
+    <div class="row"><span>One shout costs</span><span id="k-round"></span></div>
+    <div class="row"><span>Whoever shouts pays</span><span id="k-buyer"></span></div>
     <div class="row"><span>Never bought one</span><span id="k-free"></span></div>
     <p class="note" id="k-note"></p>
   </div>
@@ -158,7 +158,7 @@ footer p{margin:0;max-width:65ch}
 <script>
 const $=id=>document.getElementById(id);
 const num=id=>Math.max(0,parseFloat($(id).value)||0);
-let cur='£';
+let cur='A$';
 const m=v=>cur+(Math.round(v*100)/100).toFixed(2);
 function budget(){
   const drinks=num('b-drinks')*num('b-price'), ef=num('b-entry')+num('b-food'), tr=num('b-travel');
@@ -185,7 +185,7 @@ function kitty(){
   $('k-buyer').textContent=r?m(round):m(0);
   const free=Math.max(0,g-r);
   $('k-free').textContent=free?`${free} ${free===1?'person':'people'}, ${m(0)}`:'nobody';
-  $('k-note').textContent=r<g?`With ${r} rounds and ${g} people, ${g-r} get drinks free while ${r} pay ${m(round)} each. A kitty of ${m(each)} each is fairer.`:r%g?`Some people will buy one more round than others. A kitty of ${m(each)} each keeps it even.`:`Everyone buys the same number of rounds, so rounds are fair tonight.`;
+  $('k-note').textContent=r<g?`With ${r} shouts and ${g} people, ${g-r} get drinks free while ${r} pay ${m(round)} each. A kitty of ${m(each)} each is fairer.`:r%g?`Some people will shout one more time than others. A kitty of ${m(each)} each keeps it even.`:`Everyone shouts the same number of times, so shouts are fair tonight.`;
 }
 function all(){budget();split();kitty()}
 document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',()=>{if(el.id==='cur'){cur=el.value;try{localStorage.setItem('cur',cur)}catch(e){}}all()}));
