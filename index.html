@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Whose Round</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Free night-out calculators: budget a night out, split the bill with tip, and work out a fair kitty or rounds for your group.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single column of three calculator "tabs" like bar receipts, results pinned beside inputs on wide screens */
+:root{
+  --bg:#F3F4F9; --surface:#FFFFFF; --ink:#1B1E3A; --muted:#5C6185; --line:#DADCEA; --accent:#B8620F; --accent-ink:#FFFFFF; --soft:#FBEBDB;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Figtree",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121429;--surface:#1B1E3A;--ink:#ECEDF7;--muted:#A3A7C7;--line:#2E3258;--accent:#F0A445;--accent-ink:#1B1E3A;--soft:#2A2440;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121429;--surface:#1B1E3A;--ink:#ECEDF7;--muted:#A3A7C7;--line:#2E3258;--accent:#F0A445;--accent-ink:#1B1E3A;--soft:#2A2440;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:880px;margin:0 auto}
+header{padding-block:40px 24px;display:flex;flex-wrap:wrap;gap:16px;align-items:end;justify-content:space-between}
+h1{font:800 clamp(2.4rem,7vw,4rem)/1 var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance}
+h1 span{color:var(--accent)}
+.tag{margin:8px 0 0;color:var(--muted);max-width:44ch}
+label.cur{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.9rem}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+nav button{font:600 .95rem var(--body);padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+nav button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+section.tool{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px}
+@media (max-width:640px){section.tool{grid-template-columns:1fr;padding:18px}}
+h2{font:500 1.6rem/1.15 var(--display);margin:0 0 4px;text-wrap:balance}
+.lede{color:var(--muted);margin:0 0 16px;font-size:.95rem}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+input,select{font:500 1rem var(--mono);padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%;min-width:0}
+.receipt{background:var(--soft);border-radius:10px;padding:20px;font-family:var(--mono);font-variant-numeric:tabular-nums;align-self:start;min-width:0}
+.receipt .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:.92rem}
+.receipt .row:last-of-type{border-bottom:0}
+.big{font:800 2.4rem/1 var(--display);color:var(--accent);margin:4px 0 12px}
+.cap{font:600 .75rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.note{font-family:var(--body);font-size:.85rem;color:var(--muted);margin:12px 0 0}
+footer{margin-top:32px;color:var(--muted);font-size:.85rem;display:grid;gap:8px}
+footer h3{font:500 1.15rem var(--display);color:var(--ink);margin:16px 0 0}
+footer p{margin:0;max-width:65ch}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div>
+    <h1>Whose <span>Round</span>?</h1>
+    <p class="tag">Free calculators for nights out. Work out what a night will cost, split the bill fairly, and settle the kitty before the first drink.</p>
+  </div>
+  <label class="cur" for="cur">Currency
+    <select id="cur" style="width:auto">
+      <option value="£">£ GBP</option><option value="$">$ USD</option><option value="€">€ EUR</option><option value="A$">A$ AUD</option><option value="NZ$">NZ$ NZD</option><option value="C$">C$ CAD</option>
+    </select>
+  </label>
+</header>
+
+<nav role="tablist" aria-label="Calculators">
+  <button role="tab" id="t-budget" aria-selected="true" data-tab="budget">Night out budget</button>
+  <button role="tab" id="t-split" aria-selected="false" data-tab="split">Bill splitter</button>
+  <button role="tab" id="t-kitty" aria-selected="false" data-tab="kitty">Rounds vs kitty</button>
+</nav>
+
+<section class="tool" id="budget" role="tabpanel" aria-labelledby="t-budget">
+  <div>
+    <h2>What will tonight cost?</h2>
+    <p class="lede">Add up drinks, entry, food and the ride home, then see what that means across a month.</p>
+    <div class="fields">
+      <div class="field"><label for="b-drinks">Drinks</label><input id="b-drinks" type="number" min="0" value="5"></div>
+      <div class="field"><label for="b-price">Price per drink</label><input id="b-price" type="number" min="0" step="0.1" value="6.5"></div>
+      <div class="field"><label for="b-entry">Entry / cover</label><input id="b-entry" type="number" min="0" step="0.5" value="10"></div>
+      <div class="field"><label for="b-food">Food</label><input id="b-food" type="number" min="0" step="0.5" value="12"></div>
+      <div class="field"><label for="b-travel">Travel (both ways)</label><input id="b-travel" type="number" min="0" step="0.5" value="18"></div>
+      <div class="field"><label for="b-buffer">Buffer for surprises</label><select id="b-buffer"><option value="0">None</option><option value="0.1">10%</option><option value="0.2" selected>20%</option><option value="0.3">30%</option></select></div>
+      <div class="field full"><label for="b-nights">Nights out per month</label><input id="b-nights" type="number" min="0" value="2"></div>
+    </div>
+  </div>
+  <div class="receipt" aria-live="polite">
+    <div class="cap">One night</div>
+    <div class="big" id="b-total">–</div>
+    <div class="row"><span>Drinks</span><span id="b-r-drinks"></span></div>
+    <div class="row"><span>Entry + food</span><span id="b-r-ef"></span></div>
+    <div class="row"><span>Travel</span><span id="b-r-travel"></span></div>
+    <div class="row"><span>Buffer</span><span id="b-r-buffer"></span></div>
+    <div class="row"><span><b>Per month</b></span><span><b id="b-month"></b></span></div>
+    <div class="row"><span>Save per week</span><span id="b-week"></span></div>
+    <p class="note" id="b-tip"></p>
+  </div>
+</section>
+
+<section class="tool" id="split" role="tabpanel" aria-labelledby="t-split" hidden>
+  <div>
+    <h2>Split the bill</h2>
+    <p class="lede">Split evenly, with tip, and let the people who skipped drinks pay less.</p>
+    <div class="fields">
+      <div class="field"><label for="s-bill">Bill total</label><input id="s-bill" type="number" min="0" step="0.5" value="186"></div>
+      <div class="field"><label for="s-tip">Tip</label><select id="s-tip"><option value="0">0%</option><option value="0.1">10%</option><option value="0.125" selected>12.5%</option><option value="0.15">15%</option><option value="0.18">18%</option><option value="0.2">20%</option></select></div>
+      <div class="field"><label for="s-people">People</label><input id="s-people" type="number" min="1" value="6"></div>
+      <div class="field"><label for="s-sober">Not drinking</label><input id="s-sober" type="number" min="0" value="1"></div>
+      <div class="field full"><label for="s-drinks">Of the bill, drinks were</label><input id="s-drinks" type="number" min="0" step="0.5" value="72"></div>
+    </div>
+  </div>
+  <div class="receipt" aria-live="polite">
+    <div class="cap">Even split, each</div>
+    <div class="big" id="s-even">–</div>
+    <div class="row"><span>Total with tip</span><span id="s-total"></span></div>
+    <div class="row"><span>Drinkers pay</span><span id="s-drinker"></span></div>
+    <div class="row"><span>Non-drinkers pay</span><span id="s-non"></span></div>
+    <p class="note">Food and tip are shared by everyone. Drinks, plus their share of tip, are split among the drinkers.</p>
+  </div>
+</section>
+
+<section class="tool" id="kitty" role="tabpanel" aria-labelledby="t-kitty" hidden>
+  <div>
+    <h2>Rounds or a kitty?</h2>
+    <p class="lede">Buying rounds only works out fair if everyone gets a turn. See who comes out ahead.</p>
+    <div class="fields">
+      <div class="field"><label for="k-group">People in the group</label><input id="k-group" type="number" min="1" value="5"></div>
+      <div class="field"><label for="k-price">Average drink price</label><input id="k-price" type="number" min="0" step="0.1" value="6.5"></div>
+      <div class="field full"><label for="k-rounds">Rounds you'll actually get through</label><input id="k-rounds" type="number" min="0" value="3"></div>
+    </div>
+  </div>
+  <div class="receipt" aria-live="polite">
+    <div class="cap">Fair kitty, each</div>
+    <div class="big" id="k-each">–</div>
+    <div class="row"><span>One round costs</span><span id="k-round"></span></div>
+    <div class="row"><span>Buyers of a round pay</span><span id="k-buyer"></span></div>
+    <div class="row"><span>Never bought one</span><span id="k-free"></span></div>
+    <p class="note" id="k-note"></p>
+  </div>
+</section>
+
+<footer>
+  <h3>How to use these numbers</h3>
+  <p>The budget calculator adds a buffer because nights out almost always cost more than planned. Put the "save per week" figure into a separate account and the night is paid for before it starts.</p>
+  <p>Prices are your own estimates. Nothing you type leaves this page.</p>
+</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const num=id=>Math.max(0,parseFloat($(id).value)||0);
+let cur='£';
+const m=v=>cur+(Math.round(v*100)/100).toFixed(2);
+function budget(){
+  const drinks=num('b-drinks')*num('b-price'), ef=num('b-entry')+num('b-food'), tr=num('b-travel');
+  const base=drinks+ef+tr, buf=base*parseFloat($('b-buffer').value), night=base+buf, month=night*num('b-nights');
+  $('b-total').textContent=m(night);
+  $('b-r-drinks').textContent=m(drinks);$('b-r-ef').textContent=m(ef);$('b-r-travel').textContent=m(tr);$('b-r-buffer').textContent=m(buf);
+  $('b-month').textContent=m(month);$('b-week').textContent=m(month*12/52);
+  const biggest=[['drinks',drinks],['travel',tr],['entry and food',ef]].sort((a,b)=>b[1]-a[1])[0];
+  $('b-tip').textContent=base?`Your biggest cost is ${biggest[0]} at ${Math.round(biggest[1]/base*100)}% of the night.`:'';
+}
+function split(){
+  const bill=num('s-bill'), tip=parseFloat($('s-tip').value), n=Math.max(1,Math.round(num('s-people')));
+  const sober=Math.min(n,Math.round(num('s-sober'))), drinkers=n-sober, dr=Math.min(bill,num('s-drinks'));
+  const total=bill*(1+tip), shared=(bill-dr)*(1+tip)/n;
+  const perDrinker=drinkers?shared+dr*(1+tip)/drinkers:shared;
+  $('s-even').textContent=m(total/n);$('s-total').textContent=m(total);
+  $('s-drinker').textContent=drinkers?m(perDrinker):'n/a';
+  $('s-non').textContent=sober?m(drinkers?shared:total/n):'n/a';
+}
+function kitty(){
+  const g=Math.max(1,Math.round(num('k-group'))), p=num('k-price'), r=Math.round(num('k-rounds'));
+  const round=g*p, each=round*r/g;
+  $('k-each').textContent=m(each);$('k-round').textContent=m(round);
+  $('k-buyer').textContent=r?m(round):m(0);
+  const free=Math.max(0,g-r);
+  $('k-free').textContent=free?`${free} ${free===1?'person':'people'}, ${m(0)}`:'nobody';
+  $('k-note').textContent=r<g?`With ${r} rounds and ${g} people, ${g-r} get drinks free while ${r} pay ${m(round)} each. A kitty of ${m(each)} each is fairer.`:r%g?`Some people will buy one more round than others. A kitty of ${m(each)} each keeps it even.`:`Everyone buys the same number of rounds, so rounds are fair tonight.`;
+}
+function all(){budget();split();kitty()}
+document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',()=>{if(el.id==='cur'){cur=el.value;try{localStorage.setItem('cur',cur)}catch(e){}}all()}));
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  document.querySelectorAll('section.tool').forEach(s=>s.hidden=s.id!==b.dataset.tab);
+}));
+try{const c=localStorage.getItem('cur');if(c){cur=c;$('cur').value=c}}catch(e){}
+all();
+</script>
+</body>
+</html>
