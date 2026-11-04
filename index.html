@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Whose Round? Night Out Budget, Bill Splitter &amp; Shout Calculator (AUD)</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Free night-out calculators: budget a night out, split the bill with tip, and work out whose shout it is or a fair kitty for your group.">
+<meta name="description" content="Free night-out calculators: budget a night out, split the bill with tip, work out whose shout it is or a fair kitty, and see what pre-drinks save you.">
   <meta name="google-site-verification" content="gcIMuULFYk5Xh-CD_VNBS2WDOW0npD5MUeEzFvdfXQI" />
 <link rel="canonical" href="https://dobbo-alt.github.io/Dobbo/">
 <meta property="og:title" content="Whose Round? Free night-out calculators">
@@ -40,6 +40,7 @@ nav button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink
 button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 section.tool{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px}
 @media (max-width:640px){section.tool{grid-template-columns:1fr;padding:18px}}
+section.tool[hidden]{display:none}
 h2{font:500 1.6rem/1.15 var(--display);margin:0 0 4px;text-wrap:balance}
 .lede{color:var(--muted);margin:0 0 16px;font-size:.95rem}
 .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -77,6 +78,7 @@ footer p{margin:0;max-width:65ch}
   <button role="tab" id="t-budget" aria-selected="true" data-tab="budget">Night out budget</button>
   <button role="tab" id="t-split" aria-selected="false" data-tab="split">Bill splitter</button>
   <button role="tab" id="t-kitty" aria-selected="false" data-tab="kitty">Shouts vs kitty</button>
+  <button role="tab" id="t-pre" aria-selected="false" data-tab="pre">Pre-drinks saver</button>
 </nav>
 
 <section class="tool" id="budget" role="tabpanel" aria-labelledby="t-budget">
@@ -148,6 +150,30 @@ footer p{margin:0;max-width:65ch}
   </div>
 </section>
 
+<section class="tool" id="pre" role="tabpanel" aria-labelledby="t-pre" hidden>
+  <div>
+    <h2>What do pre-drinks save?</h2>
+    <p class="lede">Compare the drinks you'd have at home before heading out with buying the same number at the bar.</p>
+    <div class="fields">
+      <div class="field"><label for="p-count">Drinks at home</label><input id="p-count" type="number" min="0" value="3"></div>
+      <div class="field"><label for="p-bar">Bar price each</label><input id="p-bar" type="number" min="0" step="0.5" value="12"></div>
+      <div class="field"><label for="p-pack">Bottle shop price</label><input id="p-pack" type="number" min="0" step="0.5" value="24"></div>
+      <div class="field"><label for="p-per">Drinks in pack</label><input id="p-per" type="number" min="1" value="6"></div>
+      <div class="field full"><label for="p-nights">Nights out per month</label><input id="p-nights" type="number" min="0" value="2"></div>
+    </div>
+  </div>
+  <div class="receipt" aria-live="polite">
+    <div class="cap">Saved per night</div>
+    <div class="big" id="p-save">–</div>
+    <div class="row"><span>Per drink at home</span><span id="p-home"></span></div>
+    <div class="row"><span>At the bar</span><span id="p-r-bar"></span></div>
+    <div class="row"><span>At home</span><span id="p-r-home"></span></div>
+    <div class="row"><span><b>Saved per month</b></span><span><b id="p-month"></b></span></div>
+    <div class="row"><span>Saved per year</span><span id="p-year"></span></div>
+    <p class="note" id="p-note"></p>
+  </div>
+</section>
+
 <footer>
   <h3>How to use these numbers</h3>
   <p>The budget calculator adds a buffer because nights out almost always cost more than planned. Put the "save per week" figure into a separate account and the night is paid for before it starts.</p>
@@ -187,7 +213,15 @@ function kitty(){
   $('k-free').textContent=free?`${free} ${free===1?'person':'people'}, ${m(0)}`:'nobody';
   $('k-note').textContent=r<g?`With ${r} shouts and ${g} people, ${g-r} get drinks free while ${r} pay ${m(round)} each. A kitty of ${m(each)} each is fairer.`:r%g?`Some people will shout one more time than others. A kitty of ${m(each)} each keeps it even.`:`Everyone shouts the same number of times, so shouts are fair tonight.`;
 }
-function all(){budget();split();kitty()}
+function pre(){
+  const n=num('p-count'), bar=num('p-bar'), home=num('p-pack')/Math.max(1,num('p-per'));
+  const atBar=n*bar, atHome=n*home, save=atBar-atHome, month=save*num('p-nights');
+  $('p-save').textContent=m(save);$('p-home').textContent=m(home);
+  $('p-r-bar').textContent=m(atBar);$('p-r-home').textContent=m(atHome);
+  $('p-month').textContent=m(month);$('p-year').textContent=m(month*12);
+  $('p-note').textContent=!n?'Add how many drinks you have before going out.':save<=0?'At these prices, drinks at home cost the same or more than at the bar.':`That's the price of ${Math.floor(save/Math.max(bar,0.01))} bar drinks each night. It only counts as a saving if these replace drinks you'd buy at the bar, not add to them.`;
+}
+function all(){budget();split();kitty();pre()}
 document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',()=>{if(el.id==='cur'){cur=el.value;try{localStorage.setItem('cur',cur)}catch(e){}}all()}));
 document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected',x===b));
