@@ -95,13 +95,14 @@ footer p{margin:0;max-width:65ch}
 <section class="tool" aria-label="New Year's Eve group cost splitter">
   <div>
     <h2>NYE group cost splitter: who owes what?</h2>
-    <p class="lede">Add your crew, then each cost and who paid it. Accommodation is split by nights stayed, everything else evenly between the people you tick.</p>
+    <p class="lede">The example below shows four friends; change the names and amounts, or clear it and start fresh. Add each cost and who paid it. Accommodation is split by nights stayed, everything else evenly between the people you tick.</p>
     <div class="sub">Who's coming</div>
     <div class="list" id="people"></div>
     <button class="btn" id="add-person" type="button">+ Add person</button>
     <div class="sub">Costs</div>
     <div class="list" id="costs"></div>
     <button class="btn" id="add-cost" type="button">+ Add cost</button>
+    <button class="btn" id="reset" type="button" style="border-color:var(--line);color:var(--muted)">Clear and start fresh</button>
   </div>
   <div class="receipt" aria-live="polite">
     <div class="cap">Total for the night</div>
@@ -195,6 +196,7 @@ document.addEventListener('click',e=>{
   const t=e.target.closest('button');if(!t)return;
   if(t.id==='add-person'){addPerson();all();return}
   if(t.id==='add-cost'){addCost();all();return}
+  if(t.id==='reset'){people=[];costs=[];addPerson('You',1);addPerson('',1);addCost('','tickets',0,people[0].id);all();return}
   if(t.dataset.delp){const id=+t.dataset.delp;people=people.filter(p=>p.id!==id);costs.forEach(c=>{c.with.delete(id);if(c.payer===id)c.payer=people[0].id});all();return}
   if(t.dataset.delc){costs=costs.filter(c=>c.id!=t.dataset.delc);all();return}
   if(t.id==='copy'){const s=window._summary;(navigator.clipboard?navigator.clipboard.writeText(s):Promise.reject()).then(()=>{t.textContent='Copied!';setTimeout(()=>t.textContent='Copy summary for the group chat',1500)}).catch(()=>{prompt('Copy this:',s)})}
