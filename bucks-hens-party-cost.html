@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bucks & Hens Party Cost Calculator (Per Person) | Whose Round?</title>
+<meta name="description" content="Free bucks and hens party cost calculator for Australia. Split accommodation, activities, food, drinks and transport, cover the bride or groom, and see what each guest pays and the deposit to collect.">
+<link rel="canonical" href="https://dobbo-alt.github.io/Dobbo/bucks-hens-party-cost.html">
+<meta property="og:title" content="Bucks & hens party cost per person | Whose Round?">
+<meta property="og:description" content="Work out what each guest pays for a bucks or hens party, with the guest of honour covered.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dobbo-alt.github.io/Dobbo/bucks-hens-party-cost.html">
+<meta name="theme-color" content="#1B1E3A">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Bucks and hens party cost calculator","url":"https://dobbo-alt.github.io/Dobbo/bucks-hens-party-cost.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"description":"Split bucks or hens party costs per guest, cover the guest of honour, split drinks only between drinkers, and work out the deposit."}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single column of three calculator "tabs" like bar receipts, results pinned beside inputs on wide screens */
+:root{
+  --bg:#F3F4F9; --surface:#FFFFFF; --ink:#1B1E3A; --muted:#5C6185; --line:#DADCEA; --accent:#B8620F; --accent-ink:#FFFFFF; --soft:#FBEBDB;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Figtree",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121429;--surface:#1B1E3A;--ink:#ECEDF7;--muted:#A3A7C7;--line:#2E3258;--accent:#F0A445;--accent-ink:#1B1E3A;--soft:#2A2440;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121429;--surface:#1B1E3A;--ink:#ECEDF7;--muted:#A3A7C7;--line:#2E3258;--accent:#F0A445;--accent-ink:#1B1E3A;--soft:#2A2440;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:880px;margin:0 auto}
+header{padding-block:40px 24px;display:flex;flex-wrap:wrap;gap:16px;align-items:end;justify-content:space-between}
+h1{font:800 clamp(2.4rem,7vw,4rem)/1 var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance}
+h1 span{color:var(--accent)}
+.tag{margin:8px 0 0;color:var(--muted);max-width:44ch}
+label.cur{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.9rem}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+nav button{font:600 .95rem var(--body);padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+nav button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+section.tool{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px}
+@media (max-width:640px){section.tool{grid-template-columns:1fr;padding:18px}}
+section.tool[hidden],.field[hidden],.receipt .row[hidden]{display:none}
+h2{font:500 1.6rem/1.15 var(--display);margin:0 0 4px;text-wrap:balance}
+.lede{color:var(--muted);margin:0 0 16px;font-size:.95rem}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+input,select{font:500 1rem var(--mono);padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%;min-width:0}
+.receipt{background:var(--soft);border-radius:10px;padding:20px;font-family:var(--mono);font-variant-numeric:tabular-nums;align-self:start;min-width:0}
+.receipt .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:.92rem}
+.receipt .row:last-of-type{border-bottom:0}
+.big{font:800 2.4rem/1 var(--display);color:var(--accent);margin:4px 0 12px}
+.cap{font:600 .75rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.note{font-family:var(--body);font-size:.85rem;color:var(--muted);margin:12px 0 0}
+footer{margin-top:32px;color:var(--muted);font-size:.85rem;display:grid;gap:8px}
+footer h3{font:500 1.15rem var(--display);color:var(--ink);margin:16px 0 0}
+footer p{margin:0;max-width:65ch}
+.back{color:var(--accent);font-weight:600;text-decoration:none}
+.back:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div>
+    <p style="margin:0 0 8px"><a class="back" href="./">&larr; All Whose Round? calculators</a></p>
+    <h1>Bucks &amp; <span>hens</span> cost</h1>
+    <p class="tag">Organising the weekend? Add up the Airbnb, activities, food, drinks and transport, cover the bride or groom, and see exactly what each guest owes and what to collect as a deposit.</p>
+  </div>
+  <label class="cur" for="cur">Currency
+    <select id="cur" style="width:auto">
+      <option value="A$">A$ AUD</option><option value="£">£ GBP</option><option value="$">$ USD</option><option value="€">€ EUR</option><option value="NZ$">NZ$ NZD</option><option value="C$">C$ CAD</option>
+    </select>
+  </label>
+</header>
+
+<section class="tool" aria-label="Bucks and hens party cost calculator">
+  <div>
+    <h2>Bucks or hens party cost per person</h2>
+    <p class="lede">Shared costs are split between the paying guests. Drinks are split only between the people drinking. If the guest of honour goes free, their share is spread across everyone else.</p>
+    <div class="fields">
+      <div class="field"><label for="b-people">Guests (including guest of honour)</label><input id="b-people" type="number" min="2" value="10"></div>
+      <div class="field"><label for="b-sober">Guests not drinking</label><input id="b-sober" type="number" min="0" value="1"></div>
+      <div class="field full"><label for="b-free">Guest of honour</label><select id="b-free" style="font-family:var(--body)"><option value="1">Goes free (everyone covers them)</option><option value="0">Pays their own share</option></select></div>
+      <div class="field"><label for="b-acc">Accommodation total</label><input id="b-acc" type="number" min="0" step="1" value="1500"></div>
+      <div class="field"><label for="b-act">Activities total</label><input id="b-act" type="number" min="0" step="1" value="900"></div>
+      <div class="field"><label for="b-food">Food total</label><input id="b-food" type="number" min="0" step="1" value="600"></div>
+      <div class="field"><label for="b-drinks">Drinks total</label><input id="b-drinks" type="number" min="0" step="1" value="800"></div>
+      <div class="field"><label for="b-travel">Transport total (minibus, fuel)</label><input id="b-travel" type="number" min="0" step="1" value="400"></div>
+      <div class="field"><label for="b-dep">Deposit to collect now</label><select id="b-dep" style="font-family:var(--body)"><option value="0.5">50%</option><option value="0.3">30%</option><option value="1">100% (pay in full)</option></select></div>
+    </div>
+  </div>
+  <div class="receipt" aria-live="polite">
+    <div class="cap">Each drinking guest pays</div>
+    <div class="big" id="r-drinker">–</div>
+    <div class="row"><span>Each non-drinker pays</span><span id="r-non"></span></div>
+    <div class="row"><span>Deposit per drinking guest</span><span id="r-dep"></span></div>
+    <div class="row"><span>Covering the guest of honour, each</span><span id="r-hon"></span></div>
+    <div class="row"><span>Shared costs per payer</span><span id="r-shared"></span></div>
+    <div class="row"><span>Drinks per paying drinker</span><span id="r-dr"></span></div>
+    <div class="row"><span>Party total</span><span id="r-total"></span></div>
+    <div class="row"><span>Check: guests pay in total</span><span id="r-check"></span></div>
+    <p class="note" id="r-note"></p>
+  </div>
+</section>
+
+<footer>
+  <h3>How much does a bucks or hens party cost per person in Australia?</h3>
+  <p>A weekend away usually lands somewhere between a few hundred and over a thousand dollars per guest, depending on the accommodation and activities. The quickest way to know is to plug in real quotes above before you send the invite, so guests can say yes knowing the cost.</p>
+  <h3>Does the bride or groom pay for their own bucks or hens?</h3>
+  <p>Traditionally, no. The guests split the guest of honour's share between them. Choose "Goes free" above and the calculator spreads their share of every cost, including their drinks, across the paying guests.</p>
+  <h3>How do you split drinks if some guests don't drink?</h3>
+  <p>Non-drinkers share the accommodation, activities, food and transport, but not the drinks. The drinks total is split between the paying guests who drink, so nobody pays for a bar tab they didn't use.</p>
+  <h3>How much deposit should the organiser collect?</h3>
+  <p>Collect enough to cover the bookings that need paying upfront, usually the accommodation and activity deposits. Half the per-person cost is a common choice, and it also confirms who's really coming.</p>
+  <p>Splitting costs after the weekend instead? Try the <a href="nye-cost-splitter.html" style="color:var(--accent)">group cost splitter</a>, which works out who owes who.</p>
+  <p>Found this useful? <a href="https://ko-fi.com/dobbo80373" target="_blank" rel="noopener" style="color:var(--accent)">Shout us a coffee on Ko-fi</a>.</p>
+  <p>Prices are your own estimates. Nothing you type leaves this page. <a class="back" href="./">More night-out calculators &rarr;</a></p>
+</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const num=id=>Math.max(0,parseFloat($(id).value)||0);
+let cur='A$';
+const m=v=>cur+(Math.round(v*100)/100).toFixed(2);
+function calc(){
+  const n=Math.max(2,Math.round(num('b-people'))), sober=Math.min(n-1,Math.round(num('b-sober'))), free=+$('b-free').value;
+  const shared=num('b-acc')+num('b-act')+num('b-food')+num('b-travel'), drinks=num('b-drinks'), dep=+$('b-dep').value;
+  const payers=n-free;                       // guest of honour drinks; assume sober guests are other guests
+  const drinkers=n-sober, payingDrinkers=drinkers-free;
+  const sharedEach=shared/payers;
+  const drinksEach=payingDrinkers>0?drinks/payingDrinkers:0;
+  const drinkerPays=sharedEach+drinksEach, nonPays=payingDrinkers>0?sharedEach:sharedEach+drinks/payers;
+  const honEach=free?(sharedEach-shared/n)+(payingDrinkers>0?drinksEach-drinks/drinkers:0):0; // extra each drinker pays to cover the guest of honour
+  const total=shared+drinks;
+  const collected=payingDrinkers*drinkerPays+sober*nonPays;
+  $('r-drinker').textContent=payingDrinkers>0?m(drinkerPays):'n/a';
+  $('r-non').textContent=sober?m(nonPays):'n/a';
+  $('r-dep').textContent=m((payingDrinkers>0?drinkerPays:nonPays)*dep);
+  $('r-hon').textContent=free?m(honEach):'n/a';
+  $('r-shared').textContent=m(sharedEach);
+  $('r-dr').textContent=payingDrinkers>0?m(drinksEach):'n/a';
+  $('r-total').textContent=m(total);$('r-check').textContent=m(collected);
+  let note=free?`The guest of honour's share costs each drinking guest about ${m(honEach)}. `:'';
+  note+=sober&&payingDrinkers>0?`Non-drinkers save ${m(drinksEach)} each by not sharing the drinks.`:payingDrinkers>0?'Everyone is drinking, so everyone pays the same.':'Nobody paying is drinking, so the drinks are split across all paying guests.';
+  $('r-note').textContent=note;
+}
+document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',()=>{if(el.id==='cur'){cur=el.value;try{localStorage.setItem('cur',cur)}catch(e){}}calc()}));
+try{const c=localStorage.getItem('cur');if(c){cur=c;$('cur').value=c}}catch(e){}
+calc();
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c08d080f460d4171bb9251db004d8c54"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
