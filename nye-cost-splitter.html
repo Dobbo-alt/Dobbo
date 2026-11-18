@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>New Year's Eve Cost Splitter Australia 2026 | Whose Round?</title>
+<meta name="description" content="Free NYE cost splitter for Australia. Split tickets, the Airbnb by nights stayed, drinks and the Uber home, then see who owes who in the fewest transfers.">
+<link rel="canonical" href="https://dobbo-alt.github.io/Dobbo/nye-cost-splitter.html">
+<meta property="og:title" content="NYE group cost splitter | Whose Round?">
+<meta property="og:description" content="Split New Year's Eve tickets, accommodation, drinks and transport, and see who owes who.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dobbo-alt.github.io/Dobbo/nye-cost-splitter.html">
+<meta name="theme-color" content="#1B1E3A">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"NYE group cost splitter","url":"https://dobbo-alt.github.io/Dobbo/nye-cost-splitter.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"description":"Split New Year's Eve group costs (tickets, accommodation by nights, drinks, transport) and settle up in the fewest transfers."}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single column of three calculator "tabs" like bar receipts, results pinned beside inputs on wide screens */
+:root{
+  --bg:#F3F4F9; --surface:#FFFFFF; --ink:#1B1E3A; --muted:#5C6185; --line:#DADCEA; --accent:#B8620F; --accent-ink:#FFFFFF; --soft:#FBEBDB;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Figtree",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121429;--surface:#1B1E3A;--ink:#ECEDF7;--muted:#A3A7C7;--line:#2E3258;--accent:#F0A445;--accent-ink:#1B1E3A;--soft:#2A2440;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121429;--surface:#1B1E3A;--ink:#ECEDF7;--muted:#A3A7C7;--line:#2E3258;--accent:#F0A445;--accent-ink:#1B1E3A;--soft:#2A2440;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:880px;margin:0 auto}
+header{padding-block:40px 24px;display:flex;flex-wrap:wrap;gap:16px;align-items:end;justify-content:space-between}
+h1{font:800 clamp(2.4rem,7vw,4rem)/1 var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance}
+h1 span{color:var(--accent)}
+.tag{margin:8px 0 0;color:var(--muted);max-width:44ch}
+label.cur{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.9rem}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+nav button{font:600 .95rem var(--body);padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+nav button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+section.tool{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px}
+@media (max-width:640px){section.tool{grid-template-columns:1fr;padding:18px}}
+section.tool[hidden],.field[hidden],.receipt .row[hidden]{display:none}
+h2{font:500 1.6rem/1.15 var(--display);margin:0 0 4px;text-wrap:balance}
+.lede{color:var(--muted);margin:0 0 16px;font-size:.95rem}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+input,select{font:500 1rem var(--mono);padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%;min-width:0}
+.receipt{background:var(--soft);border-radius:10px;padding:20px;font-family:var(--mono);font-variant-numeric:tabular-nums;align-self:start;min-width:0}
+.receipt .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:.92rem}
+.receipt .row:last-of-type{border-bottom:0}
+.big{font:800 2.4rem/1 var(--display);color:var(--accent);margin:4px 0 12px}
+.cap{font:600 .75rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.note{font-family:var(--body);font-size:.85rem;color:var(--muted);margin:12px 0 0}
+footer{margin-top:32px;color:var(--muted);font-size:.85rem;display:grid;gap:8px}
+footer h3{font:500 1.15rem var(--display);color:var(--ink);margin:16px 0 0}
+footer p{margin:0;max-width:65ch}
+.back{color:var(--accent);font-weight:600;text-decoration:none}
+.back:hover{text-decoration:underline}
+</style><style>
+.list{display:grid;gap:10px;margin-bottom:12px}
+.item{border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;gap:8px;background:var(--bg)}
+.item .r{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.item .r3{display:grid;grid-template-columns:2fr 1fr auto;gap:8px;align-items:end}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips label{font:500 .85rem var(--body);text-transform:none;letter-spacing:0;color:var(--ink);display:flex;gap:4px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--surface);cursor:pointer}
+.chips input{width:auto}
+.btn{font:600 .9rem var(--body);padding:9px 14px;border-radius:999px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
+.btn.solid{background:var(--accent);color:var(--accent-ink)}
+.x{font:600 1rem var(--body);border:0;background:none;color:var(--muted);cursor:pointer;padding:8px}
+.sub{font:600 .78rem var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
+.receipt ol{margin:8px 0 0;padding-left:20px;font-size:.92rem}
+.receipt li{padding:3px 0}
+.pos{color:#2E7D4F}.neg{color:var(--accent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pos{color:#7FD3A0}}
+:root[data-theme="dark"] .pos{color:#7FD3A0}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div>
+    <p style="margin:0 0 8px"><a class="back" href="./">&larr; All Whose Round? calculators</a></p>
+    <h1>NYE <span>cost</span> splitter</h1>
+    <p class="tag">Tickets, the Airbnb, drinks and the Uber home: add who paid for what and see exactly who owes who, in as few transfers as possible.</p>
+  </div>
+  <label class="cur" for="cur">Currency
+    <select id="cur" style="width:auto">
+      <option value="A$">A$ AUD</option><option value="£">£ GBP</option><option value="$">$ USD</option><option value="€">€ EUR</option><option value="NZ$">NZ$ NZD</option><option value="C$">C$ CAD</option>
+    </select>
+  </label>
+</header>
+
+<section class="tool" aria-label="New Year's Eve group cost splitter">
+  <div>
+    <h2>NYE group cost splitter: who owes what?</h2>
+    <p class="lede">Add your crew, then each cost and who paid it. Accommodation is split by nights stayed, everything else evenly between the people you tick.</p>
+    <div class="sub">Who's coming</div>
+    <div class="list" id="people"></div>
+    <button class="btn" id="add-person" type="button">+ Add person</button>
+    <div class="sub">Costs</div>
+    <div class="list" id="costs"></div>
+    <button class="btn" id="add-cost" type="button">+ Add cost</button>
+  </div>
+  <div class="receipt" aria-live="polite">
+    <div class="cap">Total for the night</div>
+    <div class="big" id="total">–</div>
+    <div id="balances"></div>
+    <div class="cap" style="margin-top:16px">Settle up</div>
+    <ol id="settle"></ol>
+    <p style="margin:16px 0 0"><button class="btn solid" id="copy" type="button">Copy summary for the group chat</button></p>
+    <p class="note" id="note"></p>
+  </div>
+</section>
+
+<footer>
+  <h3>How do we split NYE costs fairly when friends spend different amounts?</h3>
+  <p>Log every cost with who paid it and who it was for. Each person's share is added up, compared with what they actually paid, and the calculator works out the fewest bank transfers to square everyone up.</p>
+  <h3>How do we split the Airbnb if some friends stay fewer nights?</h3>
+  <p>Set each person's nights, then choose "Accommodation" for the booking. The cost is split per person-night, so someone staying one night of two pays half as much as someone staying both.</p>
+  <h3>Can we split Uber fares and drinks separately?</h3>
+  <p>Yes. Add each as its own cost and tick only the people who shared it. Non-drinkers don't pay for the drinks, and only the people in the car pay for the ride.</p>
+  <p>Planning other nights out? Try the <a href="christmas-party.html" style="color:var(--accent)">Christmas party splitter</a>.</p>
+  <p>Found this useful? <a href="https://ko-fi.com/dobbo80373" target="_blank" rel="noopener" style="color:var(--accent)">Shout us a coffee on Ko-fi</a>.</p>
+  <p>Prices are your own. Nothing you type leaves this page. <a class="back" href="./">More night-out calculators &rarr;</a></p>
+</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+let cur='A$';
+const m=v=>(v<0?'-':'')+cur+Math.abs(Math.round(v*100)/100).toFixed(2);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let pid=0,cid=0;
+let people=[], costs=[];
+function addPerson(name,nights){people.push({id:++pid,name:name||'Person '+(people.length+1),nights:nights??2});costs.forEach(c=>c.with.add(pid));}
+function addCost(what,cat,amount,payer,withIds){costs.push({id:++cid,what:what||'',cat:cat||'other',amount:amount||0,payer:payer??(people[0]&&people[0].id),with:new Set(withIds||people.map(p=>p.id))});}
+const cats=[['tickets','Tickets / entry'],['accommodation','Accommodation'],['drinks','Drinks'],['food','Food'],['transport','Transport'],['other','Other']];
+function renderPeople(){
+  $('people').innerHTML=people.map(p=>`<div class="item"><div class="r3">
+    <div class="field"><label for="pn${p.id}">Name</label><input id="pn${p.id}" data-p="${p.id}" data-k="name" value="${esc(p.name)}" style="font-family:var(--body)"></div>
+    <div class="field"><label for="pd${p.id}">Nights staying</label><input id="pd${p.id}" type="number" min="0" step="1" data-p="${p.id}" data-k="nights" value="${p.nights}"></div>
+    <button class="x" type="button" data-delp="${p.id}" aria-label="Remove ${esc(p.name)}" ${people.length<3?'disabled':''}>✕</button></div></div>`).join('');
+}
+function renderCosts(){
+  $('costs').innerHTML=costs.map(c=>`<div class="item">
+    <div class="r3"><div class="field"><label for="cw${c.id}">What</label><input id="cw${c.id}" data-c="${c.id}" data-k="what" value="${esc(c.what)}" placeholder="e.g. Harbour party tickets" style="font-family:var(--body)"></div>
+    <div class="field"><label for="ca${c.id}">Amount</label><input id="ca${c.id}" type="number" min="0" step="0.01" data-c="${c.id}" data-k="amount" value="${c.amount}"></div>
+    <button class="x" type="button" data-delc="${c.id}" aria-label="Remove cost">✕</button></div>
+    <div class="r"><div class="field"><label for="ct${c.id}">Type</label><select id="ct${c.id}" data-c="${c.id}" data-k="cat">${cats.map(([v,l])=>`<option value="${v}" ${v===c.cat?'selected':''}>${l}</option>`).join('')}</select></div>
+    <div class="field"><label for="cp${c.id}">Paid by</label><select id="cp${c.id}" data-c="${c.id}" data-k="payer">${people.map(p=>`<option value="${p.id}" ${p.id===c.payer?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div></div>
+    <div class="field"><label>Shared by</label><div class="chips">${people.map(p=>`<label><input type="checkbox" data-c="${c.id}" data-with="${p.id}" ${c.with.has(p.id)?'checked':''}>${esc(p.name)}</label>`).join('')}</div></div>
+  </div>`).join('');
+}
+function calc(){
+  const paid={},owed={};people.forEach(p=>{paid[p.id]=0;owed[p.id]=0});
+  let total=0;const warn=[];
+  costs.forEach(c=>{
+    const a=Math.max(0,+c.amount||0);if(!a)return;total+=a;
+    const sh=people.filter(p=>c.with.has(p.id));
+    if(!sh.length){warn.push(`"${c.what||'A cost'}" has nobody ticked, so it isn't split.`);return;}
+    if(paid[c.payer]!==undefined)paid[c.payer]+=a;
+    let w=sh.map(p=>c.cat==='accommodation'?Math.max(0,+p.nights||0):1);
+    let ws=w.reduce((x,y)=>x+y,0);
+    if(!ws){w=sh.map(()=>1);ws=sh.length;warn.push(`Nobody ticked for "${c.what||'the accommodation'}" has any nights, so it's split evenly.`);}
+    // split in cents, give leftover cents to the first people so totals match exactly
+    const cents=Math.round(a*100);let given=0;
+    const parts=sh.map((p,i)=>{const v=Math.floor(cents*w[i]/ws);given+=v;return v});
+    for(let i=0;given<cents;i=(i+1)%sh.length){if(w[i]>0||ws===sh.length){parts[i]++;given++}}
+    sh.forEach((p,i)=>owed[p.id]+=parts[i]/100);
+  });
+  $('total').textContent=m(total);
+  const net=people.map(p=>({p,paid:paid[p.id],owed:owed[p.id],net:Math.round((paid[p.id]-owed[p.id])*100)}));
+  $('balances').innerHTML=net.map(n=>`<div class="row"><span>${esc(n.p.name)}<br><small style="color:var(--muted)">paid ${m(n.paid)}, share ${m(n.owed)}</small></span><span class="${n.net>0?'pos':n.net<0?'neg':''}">${n.net>0?'gets back ':n.net<0?'owes ':''}${m(Math.abs(n.net)/100)}</span></div>`).join('');
+  const cr=net.filter(n=>n.net>0).map(n=>({...n})).sort((a,b)=>b.net-a.net), db=net.filter(n=>n.net<0).map(n=>({...n,net:-n.net})).sort((a,b)=>b.net-a.net);
+  const tx=[];let i=0,j=0;
+  while(i<db.length&&j<cr.length){const v=Math.min(db[i].net,cr[j].net);tx.push([db[i].p.name,cr[j].p.name,v/100]);db[i].net-=v;cr[j].net-=v;if(!db[i].net)i++;if(!cr[j].net)j++;}
+  $('settle').innerHTML=tx.length?tx.map(t=>`<li>${esc(t[0])} pays ${esc(t[1])} <b>${m(t[2])}</b></li>`).join(''):'<li>Everyone is square.</li>';
+  $('note').textContent=warn.join(' ');
+  window._summary=`NYE costs (${m(total)} total)\n`+(tx.length?tx.map(t=>`${t[0]} pays ${t[1]} ${m(t[2])}`).join('\n'):'Everyone is square.')+`\nWorked out at dobbo-alt.github.io/Dobbo/nye-cost-splitter.html`;
+}
+function all(){renderPeople();renderCosts();calc();}
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.id==='cur'){cur=t.value;try{localStorage.setItem('cur',cur)}catch(_){}calc();return}
+  if(t.dataset.p){const p=people.find(x=>x.id==t.dataset.p);p[t.dataset.k]=t.dataset.k==='nights'?Math.max(0,parseInt(t.value)||0):t.value;
+    if(t.dataset.k==='name'){renderCosts()}calc();return}
+  if(t.dataset.c){const c=costs.find(x=>x.id==t.dataset.c);
+    if(t.dataset.with){const id=+t.dataset.with;t.checked?c.with.add(id):c.with.delete(id)}
+    else c[t.dataset.k]=t.dataset.k==='payer'?+t.value:t.dataset.k==='amount'?(parseFloat(t.value)||0):t.value;
+    calc();}
+});
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;
+  if(t.id==='add-person'){addPerson();all();return}
+  if(t.id==='add-cost'){addCost();all();return}
+  if(t.dataset.delp){const id=+t.dataset.delp;people=people.filter(p=>p.id!==id);costs.forEach(c=>{c.with.delete(id);if(c.payer===id)c.payer=people[0].id});all();return}
+  if(t.dataset.delc){costs=costs.filter(c=>c.id!=t.dataset.delc);all();return}
+  if(t.id==='copy'){const s=window._summary;(navigator.clipboard?navigator.clipboard.writeText(s):Promise.reject()).then(()=>{t.textContent='Copied!';setTimeout(()=>t.textContent='Copy summary for the group chat',1500)}).catch(()=>{prompt('Copy this:',s)})}
+});
+try{const c=localStorage.getItem('cur');if(c){cur=c;$('cur').value=c}}catch(e){}
+['Sam','Alex','Jordan','Priya'].forEach((n,i)=>addPerson(n,i===3?1:2));
+addCost('Harbour NYE tickets','tickets',480,1);
+addCost('Airbnb (2 nights)','accommodation',700,2);
+addCost('Drinks','drinks',160,3,[1,2,3]);
+addCost('Uber home','transport',64,4);
+all();
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c08d080f460d4171bb9251db004d8c54"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
